@@ -2,17 +2,20 @@ import { getSocketConnected } from './../store/reducers/socketReducer';
 import { useEffect } from 'react';
 import { getToken } from './../store/reducers/tokenReducer';
 import { getCurrentUser } from './../store/reducers/userReducer';
-import { useAppSelector } from "../store/hooks"
+import { useAppSelector, useAppDispatch } from "../store/hooks"
 import { socket } from '../services/socket';
-import { MessageType, TextMessageType, TypingMessageType } from '../models/wsMessage';
+import { MessageType, ChatMessage, TypingMessageType } from '../models/wsMessage';
+import { addChats, setTyping } from '../store/reducers/chatReducer';
 
-
-const addSocketListeners = () => {
+const addSocketListeners = (dispatch: any) => {
   socket.addListener(MessageType.TextMessage, (message) => {
-    console.log("Text from server->", ((message.message) as TextMessageType).text);
+    const chat = message.message as ChatMessage;
+    dispatch(addChats(chat))
   })
   socket.addListener(MessageType.Typing, (message) => {
-    console.log("Typing", (message.message as TypingMessageType).typing);
+    const typingMessage = message.message as TypingMessageType
+
+    dispatch(setTyping({ fromUserId: typingMessage.fromUserId, typing: typingMessage.typing }))
   })
 }
 
@@ -22,10 +25,12 @@ export const useSocketHook = () => {
   const token = useAppSelector(getToken);
   const socketConnected = useAppSelector(getSocketConnected);
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
     if (currentUser && token && !socketConnected) {
       socket.connect()
-      addSocketListeners()
+      addSocketListeners(dispatch)
     } else if ((!currentUser || !token)) {
       socket.disconnect();
     }

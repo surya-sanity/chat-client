@@ -8,7 +8,7 @@ export interface AddUserMessageType {
   userId: string,
 }
 
-export interface TextMessageType {
+export interface ChatMessage {
   fromUserId: string
   toUserId: string
   text: string
@@ -22,5 +22,5 @@ export interface TypingMessageType {
 
 export interface Message {
   type: MessageType
-  message: string | AddUserMessageType | TextMessageType | TypingMessageType,
+  message: string | AddUserMessageType | ChatMessage | TypingMessageType,
 }

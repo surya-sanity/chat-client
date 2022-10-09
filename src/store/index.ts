@@ -11,6 +11,7 @@ import { userApi } from '../services/userService';
 import { loginApi } from '../services/loginService';
 import { combineReducers, AnyAction, Reducer } from 'redux'
 import socketReducer from './reducers/socketReducer';
+import chatReducer from './reducers/chatReducer';
 
 const reducers = combineReducers({
   [allApis.reducerPath]: allApis.reducer,
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   user: userReducer,
   token: tokenReducer,
   socket: socketReducer,
+  chat: chatReducer,
 });
 
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {

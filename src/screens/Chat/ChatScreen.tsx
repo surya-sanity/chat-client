@@ -15,7 +15,7 @@ const ChatScreen = () => {
   }
 
   return (
-    <div className="flex flex-col flex-1 rounded-[25px]  bg-white overflow-clip">
+    <div className="flex flex-col flex-1 rounded-[25px]  bg-white overflow-clip max-w-7xl mx-auto">
       <ChatBoxHeader userId={id} />
       <ChatContent scrollRef={scrollRef} triggerScroll={triggerScroll} userId={id} />
       <MessageTypeArea onTyping={() => setTriggerScroll(!triggerScroll)} userId={id} />

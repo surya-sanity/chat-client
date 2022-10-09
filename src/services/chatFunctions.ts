@@ -1,5 +1,5 @@
 import { TypingMessageType } from './../models/wsMessage';
-import { Message, MessageType, TextMessageType } from "../models/wsMessage"
+import { Message, MessageType, ChatMessage } from "../models/wsMessage"
 import { store } from "../store"
 import { socket } from "./socket"
 
@@ -9,7 +9,7 @@ export const sendTextMessage = ({ toUserId, text }: { toUserId: string, text: st
     fromUserId: currentUser.id,
     toUserId,
     text
-  } as TextMessageType
+  } as ChatMessage
 
   const message = {
     type: MessageType.TextMessage,
