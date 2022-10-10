@@ -18,8 +18,12 @@ const ChatContent = (props: Props) => {
   const typing = useAppSelector(getTyping)
   const currentUser = useAppSelector(getCurrentUser)
 
+  const chatsPresent = !!chats.find((item) => (item?.fromUserId === currentUser.id && item?.toUserId === userId) || (item?.fromUserId === userId &&
+    item?.toUserId === currentUser?.id))
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView();
+    console.log("chatsPresent", chatsPresent)
   }, [triggerScroll, chats])
 
   useEffect(() => {
@@ -31,7 +35,7 @@ const ChatContent = (props: Props) => {
   return (
     <div className="flex flex-1 overflow-auto flex-col px-4 py-2 h-32 scrollbar-thin scrollbar-thumb-sentBgColor scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-hidden">
       {
-        chats.map((item, index) => {
+        chatsPresent && chats.map((item, index) => {
           if (
             item?.fromUserId === currentUser.id &&
             item?.toUserId === userId
@@ -48,6 +52,7 @@ const ChatContent = (props: Props) => {
           return null
         })
       }
+      {!chatsPresent && <div className="flex flex-1 h-full justify-center items-center"><div className="text-xl font-normal">Start a conversation !</div></div>}
       {typing.fromUserId === userId && typing.typing && <TypingMessage userId={userId} />}
       <div ref={scrollRef} />
     </div>
