@@ -12,7 +12,7 @@ import { signUpValidationSchema } from "../../utils/validation.js";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [signUpMutation] = useSignUpMutation();
+  const [signUpMutation, { isLoading: isSigningUp }] = useSignUpMutation();
   const [signUpError, setSignUpError] = useState("")
 
   const { register, reset, handleSubmit, formState: { errors }, watch } = useForm<SignUpModel>({ mode: 'onChange', resolver: yupResolver(signUpValidationSchema) })
@@ -91,7 +91,7 @@ const SignUp = () => {
             <ErrorText err={errors.password?.message || signUpError} />
           </div>
           <div className="mt-6">
-            <CTA type={"submit"}>Sign Up</CTA>
+            <CTA type={"submit"} isLoading={isSigningUp}>Sign Up</CTA>
           </div>
         </form>
 

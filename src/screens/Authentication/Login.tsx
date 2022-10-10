@@ -16,7 +16,7 @@ import { loginValidationSchema } from '../../utils/validation'
 
 const Login = () => {
   const navigate = useNavigate();
-  const [loginMutation] = useLoginMutation();
+  const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
   const { register, reset, handleSubmit, formState: { errors }, watch } = useForm<LoginModel>({ mode: 'onChange', resolver: yupResolver(loginValidationSchema) })
 
   const [loginError, setLoginError] = useState("")
@@ -80,7 +80,7 @@ const Login = () => {
           </div>
 
           <div className="mt-6">
-            <CTA type="submit">Login</CTA>
+            <CTA type="submit" isLoading={isLoggingIn}>Login</CTA>
           </div>
         </form>
 

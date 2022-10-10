@@ -14,7 +14,7 @@ const ChooseAvatar = () => {
   const [selectedAvatar, setSelectedAvatar] = useState(currentUser.avatar ?? randomIntFromInterval(1, AvatarsList.length).toString());
   const navigate = useNavigate();
 
-  const [updateProfile] = useUpdateCurrentUserMutation()
+  const [updateProfile, { isLoading: isUpdating }] = useUpdateCurrentUserMutation()
 
   const updateAvatar = () => {
     updateProfile({ id: currentUser.id, avatar: selectedAvatar, firstName: currentUser.firstName, lastName: currentUser.lastName }).unwrap().then(() => {
@@ -52,7 +52,7 @@ const ChooseAvatar = () => {
         })}
       </div>
       <div className="max-w-xs mx-auto my-5">
-        <CTA onClick={updateAvatar} >{currentUser.avatar ? "Save" : "Proceed"}</CTA>
+        <CTA onClick={updateAvatar} isLoading={isUpdating}>{currentUser.avatar ? "Save" : "Proceed"}</CTA>
       </div>
     </div>
   );

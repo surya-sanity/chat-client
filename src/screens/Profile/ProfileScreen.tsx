@@ -26,7 +26,7 @@ const ProfileScreen = () => {
     mode: 'onChange', resolver: yupResolver(profileValidationSchema), defaultValues: currentUser
   })
 
-  const [updateProfile] = useUpdateCurrentUserMutation()
+  const [updateProfile, { isLoading: updating }] = useUpdateCurrentUserMutation()
 
   useEffect(() => {
     if (currentUser) {
@@ -104,9 +104,11 @@ const ProfileScreen = () => {
           <div className="mt-6 max-w-xs mx-auto flex flex-col gap-y-5">
             <CTA
               disabled={(!isDirty)}
+              isLoading={updating}
               type={"submit"}>{"Save"}</CTA>
             <CTA
               onClick={signOut}
+              isLoading={false}
               className="bg-red-500 hover:bg-red-600 focus:outline-none focus:bg-red-500">Log Out</CTA>
           </div>
         </form>
