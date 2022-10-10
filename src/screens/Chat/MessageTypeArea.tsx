@@ -19,7 +19,7 @@ interface TypeAreaFormModel {
 
 const MessageTypeArea = (props: Props) => {
   const { onTyping, userId } = props;
-  const { register, reset, handleSubmit, setValue, formState: { errors } } = useForm<TypeAreaFormModel>({ resolver: yupResolver(messageValidationSchema) })
+  const { register, reset, handleSubmit, setValue, getValues, formState: { errors } } = useForm<TypeAreaFormModel>({ resolver: yupResolver(messageValidationSchema) })
   const { setTyping } = useTypingStatusHook({ toUserId: userId })
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const MessageTypeArea = (props: Props) => {
 
 
   const onSubmit = (values: any) => {
-    if (values.message.trim()) {
+    if (values.message.trim() && !errors.message?.message) {
       sendTypingStatusMessage({ toUserId: userId, typing: false })
       sendTextMessage({ toUserId: userId, text: values.message })
     }
@@ -50,8 +50,9 @@ const MessageTypeArea = (props: Props) => {
           setValue("message", event.target.value);
         }}
       />
-      <div className="absolute right-0 bg-opacity-50 rounded-full p-1 mx-2 flex justify-center items-center">
-        <AiOutlineSend size={24} />
+      <div className="absolute right-0 bg-opacity-50 rounded-full p-1 mx-2 flex justify-center items-center cursor-pointer">
+        <AiOutlineSend
+          size={24} onClick={() => { onSubmit(getValues()) }} />
       </div>
     </form>
   )

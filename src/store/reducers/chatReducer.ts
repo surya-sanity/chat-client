@@ -53,7 +53,13 @@ export const chatSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(chatApi.endpoints.getChatsByUserId.matchFulfilled, (state, action) => {
       if (action.payload) {
-        state.chats = [...state.chats, ...action.payload]
+        action.payload.forEach((item) => {
+          const alreadyExist = state.chats.find((chat) => chat.messageId === item.messageId)
+
+          if (!alreadyExist) {
+            state.chats.push(item)
+          }
+        })
       }
     });
   }
