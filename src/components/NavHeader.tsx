@@ -14,6 +14,10 @@ const NavHeader = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  if (!currentUser) {
+    return null
+  }
+
   return (
     <section className="flex items-center justify-between mb-2 bg-white rounded-full p-3 px-5">
       <div className="flex items-center">
