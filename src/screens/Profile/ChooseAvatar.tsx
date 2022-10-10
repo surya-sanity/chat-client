@@ -51,7 +51,7 @@ const ChooseAvatar = () => {
           );
         })}
       </div>
-      <div className="max-w-xs mx-auto mt-5">
+      <div className="max-w-xs mx-auto my-5">
         <CTA onClick={updateAvatar} >{currentUser.avatar ? "Save" : "Proceed"}</CTA>
       </div>
     </div>
