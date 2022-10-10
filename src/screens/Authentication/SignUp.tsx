@@ -28,7 +28,7 @@ const SignUp = () => {
     signUpMutation(values)
       .unwrap()
       .then((user) => {
-        navigate("/users");
+        navigate("/avatars");
         reset()
       }).catch((err) => {
         if (err && err.data) {
@@ -79,18 +79,6 @@ const SignUp = () => {
             />
             <ErrorText err={errors.email?.message} />
           </div>
-          {/* OPTIONAL FOR ADMIN ROLE USER */}
-
-          {/* <div className="mb-5">
-            <label className="block text-sm font-semibold text-gray-800">
-              Role
-            </label>
-            <Field
-              {...register("role")}
-              type="text"
-              name="role"
-            />
-          </div> */}
           <div className="mb-5">
             <label className="block text-sm font-semibold text-gray-800">
               Password
@@ -115,7 +103,7 @@ const SignUp = () => {
           }}
         >
           Already have an account?
-          <div className="font-medium text-purple-600 hover:underline mt-2">
+          <div className="font-medium text-sentBgColor hover:underline mt-2">
             Login
           </div>
         </div>

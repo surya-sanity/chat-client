@@ -10,9 +10,11 @@ import NavBar from "./components/NavBar";
 import ChatScreen from "./screens/Chat/ChatScreen";
 import UsersScreen from "./screens/Users/UsersScreen";
 import { useSocketHook } from "./hooks/socketHook";
+import ChooseAvatar from "./screens/Profile/ChooseAvatar";
+import ProfileScreen from "./screens/Profile/ProfileScreen";
 
 const AppContent = () => {
-  useSocketHook()
+  useSocketHook();
   return (
     <BrowserRouter>
       <Routes>
@@ -21,6 +23,8 @@ const AppContent = () => {
         <Route element={<NavBar />}>
           <Route path="/chat/:id" element={<ChatScreen />} />
           <Route path="/users" element={<UsersScreen />} />
+          <Route path="/avatars" element={<ChooseAvatar />} />
+          <Route path="/profile" element={<ProfileScreen />} />
         </Route>
       </Routes>
       <AuthVerify />

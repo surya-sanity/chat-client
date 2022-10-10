@@ -12,6 +12,16 @@ export const userApi = allApis.injectEndpoints({
       query: () => `api/users/all`,
       providesTags: ['Users']
     }),
+    updateCurrentUser: builder.mutation<User, { firstName?: string, lastName?: string, avatar?: string, id: string }>({
+      query: ({ firstName, lastName, avatar, id }) => {
+        return {
+          url: `api/users/update`,
+          method: 'PUT',
+          body: { firstName, lastName, avatar, id }
+        }
+      },
+      invalidatesTags: ['CurrentUser']
+    }),
     deleteUserById: builder.mutation<any, { id: string }>({
       query: ({ id }) => {
         return {
@@ -33,4 +43,4 @@ export const userApi = allApis.injectEndpoints({
   })
 });
 
-export const { useGetCurrentUserQuery, useGetAllUsersQuery, useDeleteAllUsersMutation, useDeleteUserByIdMutation } = userApi;
+export const { useGetCurrentUserQuery, useGetAllUsersQuery, useDeleteAllUsersMutation, useDeleteUserByIdMutation, useUpdateCurrentUserMutation } = userApi;

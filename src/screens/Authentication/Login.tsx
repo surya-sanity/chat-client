@@ -92,7 +92,7 @@ const Login = () => {
           }}
         >
           Don't have an account?
-          <div className="font-medium text-purple-600 hover:underline mt-2">
+          <div className="font-medium text-sentBgColor hover:underline mt-2">
             Signup
           </div>
         </div>

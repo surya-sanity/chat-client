@@ -14,7 +14,7 @@ export const useTypingStatusHook = ({ toUserId }: { toUserId: string }) => {
       timeout = setTimeout(() => {
         setTyping(false);
         sendTypingStatusMessage({ toUserId, typing: false })
-      }, 4000)
+      }, 3000)
     }
   }, [typing])
 

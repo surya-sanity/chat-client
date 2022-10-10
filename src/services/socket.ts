@@ -3,6 +3,7 @@ import { Config } from '../config';
 import { AddUserMessageType, Message, MessageType } from '../models/wsMessage';
 import { store } from '../store';
 import { setSocketConnected } from '../store/reducers/socketReducer';
+import addSocketListeners from './socketListeners';
 
 class SocketClient {
 
@@ -17,7 +18,13 @@ class SocketClient {
     const currentUser = store.getState().user.currentUser
     this.socket.connect();
     this.addUser({ userId: currentUser.id })
-    this._setupListeners()
+    this.socket.on('connect', () => {
+      store.dispatch(setSocketConnected(true))
+      this._setupListeners()
+    })
+    this.socket.on('disconnect', () => {
+      store.dispatch(setSocketConnected(false))
+    })
   }
 
   disconnect() {
@@ -27,26 +34,20 @@ class SocketClient {
   }
 
   _setupListeners() {
-    this.socket.on('connect', () => {
-      store.dispatch(setSocketConnected(true))
+    this.socket.on('message', (data) => {
+      const message = data as Message
 
-      this.socket.on('message', (data) => {
+      const callback = this.listeners[message.type]
 
-        const message = data as Message
+      if (callback) {
+        callback(message)
+      } else {
+        console.log('No callback for message type: ' + message.type)
+      }
 
-        const callback = this.listeners[message.type]
-
-        if (callback) {
-          callback(message)
-        } else {
-          console.log('No callback for message type: ' + message.type)
-        }
-
-        this.socket.on('disconnect', () => {
-          store.dispatch(setSocketConnected(false))
-        })
-      })
     })
+
+    addSocketListeners()
   }
 
   addListener(key: MessageType, callback: (message: Message) => void) {

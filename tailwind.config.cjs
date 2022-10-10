@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         dark: "#140F26",
         secondary: "#F5F7FB",
-        sentBgColor: "#4E426D"
+        sentBgColor: "#1C98F7"
       }
     },
   },

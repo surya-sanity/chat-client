@@ -45,11 +45,9 @@ const MessageTypeArea = (props: Props) => {
         placeholder="Type a message"
         autoFocus={true}
         onChange={(event) => {
+          setTyping(true)
           onTyping();
           setValue("message", event.target.value);
-        }}
-        onKeyDownCapture={() => {
-          setTyping(true)
         }}
       />
       <div className="absolute right-0 bg-opacity-50 rounded-full p-1 mx-2 flex justify-center items-center">

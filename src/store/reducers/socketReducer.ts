@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginApi } from "../../services/loginService";
-import { signUpApi } from "../../services/signupService";
 import { RootState } from "../../store";
 
 interface SocketReducerInitialType {

@@ -42,3 +42,18 @@ export const signUpValidationSchema = yup.object().shape({
     .required("Required")
     .transform((curr, orig) => (orig === null ? "" : curr)),
 });
+
+export const profileValidationSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .matches(/^(\s+\S+\s*)*(?!\s).*$/, "Required")
+    .max(25, "Firstname can be max 25 characters long")
+    .required("Required")
+    .transform((curr, orig) => (orig === null ? "" : curr)),
+  lastName: yup
+    .string()
+    .matches(/^(\s+\S+\s*)*(?!\s).*$/, "Required")
+    .max(25, "Lastname can be max 25 characters long")
+    .required("Required")
+    .transform((curr, orig) => (orig === null ? "" : curr)),
+});

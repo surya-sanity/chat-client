@@ -7,6 +7,7 @@ export enum Role {
 
 export interface User extends CommonModel {
   id: string
+  avatar: string
   firstName: string
   lastName: string
   email: string

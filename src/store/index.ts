@@ -1,3 +1,4 @@
+import { chatApi } from './../services/chatService';
 import { allApis } from '../services/allApi';
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import { configureStore } from '@reduxjs/toolkit'
@@ -12,16 +13,19 @@ import { loginApi } from '../services/loginService';
 import { combineReducers, AnyAction, Reducer } from 'redux'
 import socketReducer from './reducers/socketReducer';
 import chatReducer from './reducers/chatReducer';
+import onlineReducer from './reducers/onlineReducer';
 
 const reducers = combineReducers({
   [allApis.reducerPath]: allApis.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [signUpApi.reducerPath]: signUpApi.reducer,
   [loginApi.reducerPath]: loginApi.reducer,
+  [chatApi.reducerPath]: chatApi.reducer,
   user: userReducer,
   token: tokenReducer,
   socket: socketReducer,
   chat: chatReducer,
+  onlineUser: onlineReducer,
 });
 
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
@@ -54,7 +58,8 @@ const store = configureStore({
     }).concat(allApis.middleware).
       concat(userApi.middleware).
       concat(signUpApi.middleware).
-      concat(loginApi.middleware)
+      concat(loginApi.middleware).
+      concat(chatApi.middleware)
 
     return middlewares;
   },
