@@ -23,7 +23,6 @@ const ChatContent = (props: Props) => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView();
-    console.log("chatsPresent", chatsPresent)
   }, [triggerScroll, chats])
 
   useEffect(() => {
