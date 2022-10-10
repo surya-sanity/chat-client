@@ -1,9 +1,10 @@
 import { Logo } from "../Assets/svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../store/hooks";
 import { getCurrentUser } from "../store/reducers/userReducer";
 import { UserAvatar } from "../screens/Users/UserCard";
 import { useGetAllUsersQuery, useGetCurrentUserQuery } from "../services/userService";
+import { FiUsers } from "react-icons/fi";
 
 const NavHeader = () => {
   useGetCurrentUserQuery()
@@ -12,7 +13,6 @@ const NavHeader = () => {
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   if (!currentUser) {
     return null
@@ -29,7 +29,12 @@ const NavHeader = () => {
         />
         <div className="text-2xl ml-3 font-semibold">Flash Chat</div>
       </div>
-      <div className="flex flex-row items-center justify-center gap-x-3">
+      <div className="flex flex-row items-center justify-center gap-x-6 ">
+        {
+          pathname.startsWith("/chat") && <div
+            onClick={() => { navigate("/users") }}
+            className="flex gap-x-2 p-3 cursor-pointer rounded-full shadow-lg "><FiUsers size={20} /></div>
+        }
         <div className="cursor-pointer" onClick={() => navigate("/profile")}>
           <UserAvatar
             userId={currentUser.id}
